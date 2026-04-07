@@ -1,0 +1,26 @@
+models:
+  - name: stg_citibike_tripdata
+    description: Cleaned and enriched Citibike trip data
+    columns:
+      - name: ride_id
+        description: Unique identifier for each ride
+        tests:
+          - unique
+          - not_null
+      - name: member_casual
+        description: Member or casual rider
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['member', 'casual']
+      - name: trip_duration_minutes
+        description: Trip duration in minutes
+        tests:
+          - not_null
+      - name: rideable_type
+        description: Type of bike
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['classic_bike', 'electric_bike', 'docked_bike']
