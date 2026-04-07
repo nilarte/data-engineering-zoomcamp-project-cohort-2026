@@ -1,0 +1,55 @@
+sources:
+  - name: raw
+    description: Raw Citibike trip data from GCS via Kestra
+    database: |
+      {%- if target.type == 'bigquery' -%}
+        {{ env_var('GCP_PROJECT_ID', 'helical-math-347004') }}
+      {%- else -%}
+        citibike
+      {%- endif -%}
+    schema: |
+      {%- if target.type == 'bigquery' -%}
+        zoomcamp
+      {%- else -%}
+        prod
+      {%- endif -%}
+    tables:
+      - name: citibike_tripdata
+        description: Raw Citibike trip records loaded by Kestra from S3 source files
+        columns:
+          - name: unique_row_id
+            description: MD5 hash of ride_id, started_at, ended_at, start_station_id, end_station_id
+          - name: filename
+            description: Source CSV filename from which the record was loaded
+          - name: ride_id
+            description: Unique identifier for each ride
+          - name: rideable_type
+            description: Type of bike used - classic_bike, electric_bike, or docked_bike
+          - name: started_at
+            description: Timestamp when the trip started
+          - name: ended_at
+            description: Timestamp when the trip ended
+          - name: start_station_name
+            description: Name of the station where the trip started
+          - name: start_station_id
+            description: ID of the station where the trip started
+          - name: end_station_name
+            description: Name of the station where the trip ended
+          - name: end_station_id
+            description: ID of the station where the trip ended
+          - name: start_lat
+            description: Latitude of the start station
+          - name: start_lng
+            description: Longitude of the start station
+          - name: end_lat
+            description: Latitude of the end station
+          - name: end_lng
+            description: Longitude of the end station
+          - name: member_casual
+            description: Indicates whether the rider is a member or casual rider
+        config:
+          loaded_at_field: started_at
+    config:
+      freshness:
+        warn_after: {count: 24, period: hour}
+        error_after: {count: 48, period: hour}
