@@ -1,0 +1,58 @@
+models:
+  - name: mart_trips_by_month
+    description: Monthly aggregation of Citibike trips, partitioned by month and clustered by rider and bike type
+    columns:
+      - name: year_month
+        description: Year and month of trips in YYYY-MM format
+        tests:
+          - not_null
+      - name: trip_date
+        description: First day of the month, used for partitioning
+        tests:
+          - not_null
+      - name: member_casual
+        description: Rider type - member or casual
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['member', 'casual']
+      - name: rideable_type
+        description: Type of bike used
+        tests:
+          - not_null
+      - name: total_rides
+        description: Total number of rides for this month and rider/bike combination
+        tests:
+          - not_null
+      - name: avg_trip_duration_minutes
+        description: Average trip duration in minutes
+        tests:
+          - not_null
+
+  - name: mart_trips_by_rider_type
+    description: Overall aggregation of trips by rider type and bike type across all time
+    columns:
+      - name: member_casual
+        description: Rider type - member or casual
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['member', 'casual']
+      - name: rideable_type
+        description: Type of bike used
+        tests:
+          - not_null
+      - name: total_rides
+        description: Total number of rides for this rider/bike combination
+        tests:
+          - not_null
+      - name: pct_of_total_rides
+        description: Percentage of total rides this combination represents
+        tests:
+          - not_null
+      - name: avg_trip_duration_minutes
+        description: Average trip duration in minutes
+        tests:
+          - not_null
