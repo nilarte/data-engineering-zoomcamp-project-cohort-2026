@@ -103,5 +103,13 @@ Transformations are defined in dbt Cloud, connected to this repository. The pipe
 ![dbt Data Lineage](images/dbt_data_lineage.png)
 
 ### Dashboards via Looker Studio
-Placeholder for the next incremental update.
+Dashboards are built in Looker Studio on top of the dbt mart tables in BigQuery.
+
+**Monthly Rides by Rider Type** — [View Dashboard](https://lookerstudio.google.com/reporting/75f5c844-2a5a-4414-afe0-b75505bff394)
+
+![Monthly Rides by Rider Type](images/monthly_rides_by_rider_type.png)
+
+**Rides Share by Rider Type** — [View Dashboard](https://lookerstudio.google.com/reporting/57c3846e-b1bd-4180-a524-eb789b89a2f8)
+
+![Rides Share by Rider Type](images/Rides_share_by_rider_type.png)
 
