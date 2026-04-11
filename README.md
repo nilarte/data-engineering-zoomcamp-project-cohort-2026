@@ -73,7 +73,34 @@ This project uses NYC Citi Bike trip data to create an end-to-end data pipeline.
    ![BigQuery Table](images/kestra_bigquery_table.png)
 
 ### Data transformation via dbt cloud
-Placeholder for the next incremental update.
+Transformations are defined in dbt Cloud, connected to this repository. The pipeline consists of two layers:
+
+**Staging** — `stg_citibike_tripdata` (view)
+- Reads from the raw `citibike_tripdata` BigQuery table loaded by Kestra
+- Filters out invalid trips (null ride IDs, negative/zero duration, trips over 24 hours)
+- Derives calculated fields: `trip_duration_minutes`, `trip_date`, `trip_year`, `trip_month`, `year_month`
+
+**Marts** (tables)
+- `mart_trips_by_month` — monthly aggregation of ride counts and average duration, partitioned by month and clustered by `member_casual` and `rideable_type`
+- `mart_trips_by_rider_type` — overall aggregation by rider type and bike type across all time, including % share of total rides
+
+**Tests** are defined on all key columns (uniqueness, not_null, accepted_values).
+
+**To run the dbt pipeline:**
+
+1. In dbt Cloud, create a new project and link it to this repository
+2. Set up a BigQuery connection and configure the following environment variable in dbt Cloud:
+   - `GCP_PROJECT_ID` — your GCP project ID
+3. Set the target dataset/schema to `zoomcamp` (to match the source configuration)
+4. Run the full pipeline:
+   ```bash
+   dbt build
+   ```
+   This runs all models and tests in dependency order: `stg_citibike_tripdata` → `mart_trips_by_month`, `mart_trips_by_rider_type`
+
+**Data lineage:**
+
+![dbt Data Lineage](images/dbt_data_lineage.png)
 
 ### Dashboards via Looker Studio
 Placeholder for the next incremental update.
