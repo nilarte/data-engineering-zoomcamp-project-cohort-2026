@@ -60,7 +60,18 @@ This project uses NYC Citi Bike trip data to create an end-to-end data pipeline.
 
 4. Add the flow [gcp_citibike.yaml](./gcp_citibike.yaml):
    - Select batch of data: year and month of bikes data
-   - Run the flow 
+   - Run the flow
+
+   ![Kestra Execute Flow](images/kestra_batch.png)
+
+5. Verify data landed in GCS bucket:
+
+   ![GCS Bucket Data](images/kestra_bucket_data.png)
+
+6. Verify data loaded into BigQuery table:
+
+   ![BigQuery Table](images/kestra_bigquery_table.png)
+
 ### Data transformation via dbt cloud
 Placeholder for the next incremental update.
 
