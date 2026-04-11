@@ -58,9 +58,9 @@ This project uses NYC Citi Bike trip data to create an end-to-end data pipeline.
 
 3. Create GCS bucket and BigQuery dataset by running the setup flow: [gcp_setup.yaml](./gcp_setup.yaml)
 
-4. Add the flow [gcp_citibike.yaml](./gcp_citibike.yaml)
-Select batch of data: year and month of bikes data
-Run the flow 
+4. Add the flow [gcp_citibike.yaml](./gcp_citibike.yaml):
+   - Select batch of data: year and month of bikes data
+   - Run the flow 
 ### Data transformation via dbt cloud
 Placeholder for the next incremental update.
 
