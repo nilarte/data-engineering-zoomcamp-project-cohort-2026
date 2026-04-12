@@ -38,14 +38,6 @@ This project uses NYC Citi Bike trip data to create an end-to-end data pipeline.
 4. Use the local admin credentials configured in `docker-compose.yaml`:
    - Username: `admin@kestra.io`
    - Password: `Admin1234!`
-5. If you need to inspect logs:
-   ```bash
-   docker compose logs -f kestra
-   ```
-6. To stop the local Kestra stack:
-   ```bash
-   docker compose down
-   ```
 
 ### Data ingestion via batch mode using Kestra
 1. [Set up Google Cloud Service Account in Kestra](https://go.kestra.io/de-zoomcamp/google-sa)
@@ -71,6 +63,9 @@ This project uses NYC Citi Bike trip data to create an end-to-end data pipeline.
 6. Verify data loaded into BigQuery table:
 
    ![BigQuery Table](images/kestra_bigquery_table.png)
+
+7. Verify aggregated target table is partitioned
+   ![Partitioned Table](images/kestra_partition_proof.png)   
 
 ### Data transformation via dbt cloud
 Transformations are defined in dbt Cloud, connected to this repository. The pipeline consists of two layers:
