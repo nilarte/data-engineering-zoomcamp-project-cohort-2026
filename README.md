@@ -70,14 +70,14 @@ This project uses NYC Citi Bike trip data to create an end-to-end data pipeline.
 ### Data transformation via dbt cloud
 Transformations are defined in dbt Cloud, connected to this repository. The pipeline consists of two layers:
 
-**Staging** — `stg_citibike_tripdata` (view)
+**Staging** — [`stg_citibike_tripdata`](models/staging/stg_citibike_tripdata.sql) (view)
 - Reads from the raw `citibike_tripdata` BigQuery table loaded by Kestra
 - Filters out invalid trips (null ride IDs, negative/zero duration, trips over 24 hours)
 - Derives calculated fields: `trip_duration_minutes`, `trip_date`, `trip_year`, `trip_month`, `year_month`
 
 **Marts** (tables)
-- `mart_trips_by_month` — monthly aggregation of ride counts and average duration, partitioned by month and clustered by `member_casual` and `rideable_type`
-- `mart_trips_by_rider_type` — overall aggregation by rider type and bike type across all time, including % share of total rides
+- [`mart_trips_by_month`](models/marts/mart_trips_by_month.sql) — monthly aggregation of ride counts and average duration, partitioned by month and clustered by `member_casual` and `rideable_type`
+- [`mart_trips_by_rider_type`](models/marts/mart_trips_by_rider_type.sql) — overall aggregation by rider type and bike type across all time, including % share of total rides
 
 **Tests** are defined on all key columns (uniqueness, not_null, accepted_values).
 
